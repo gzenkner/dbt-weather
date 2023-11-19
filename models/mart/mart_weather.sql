@@ -2,6 +2,7 @@ SELECT DISTINCT
     location_key,
     unix_ts,
     event_date,
+    DATETIME_TRUNC(event_date, HOUR) as rounded_event_date,
     name,
     clouds, 
     rain_per_hour,

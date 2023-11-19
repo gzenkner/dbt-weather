@@ -1,6 +1,7 @@
 SELECT
     dt,
     timestamp_seconds(dt) as date,
+    DATETIME_TRUNC(timestamp_seconds(dt), HOUR) as rounded_event_date,
     city_name,
     lat,
     lon,
