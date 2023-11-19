@@ -4,3 +4,8 @@ sources:
   - name: weather_api
     tables:
       - name: weather_api_table
+
+  - name: weather_training
+    tables:
+      - name: weather_city_of_london_training
+      - name: weather_cockfosters_historical
