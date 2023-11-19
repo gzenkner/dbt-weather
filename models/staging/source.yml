@@ -1,0 +1,6 @@
+version: 2
+
+sources:
+  - name: weather_api
+    tables:
+      - name: weather_api_table
