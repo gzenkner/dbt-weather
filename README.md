@@ -1,0 +1,1 @@
+Weather is extracted from a weather API called OpenWeather and transformations are applied.
