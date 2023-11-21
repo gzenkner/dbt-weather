@@ -5,37 +5,35 @@ models:
   - name: stg_location_duplicates
     description: ""
     columns:
-      - name: name
+      - name: city_name
         description: "location name"
       - name: base
         description: "type of station"
       - name: timezone
         description: "timezone"
-        name: lat
+      - name: lat
         description: "latitude"
-        name: lon
+      - name: lon
         description: "longitude"
+      - name: country
+        description: ""
 
   - name: stg_weather
     description: ""
     columns:
       - name: dt
         description: "unix time"
-      - name: name
+      - name: city_name
         description: "location name"
-      - name: clouds
+      - name: cloud_cover
         description: "cloud cover percentage"
-      - name: rain_per_hour
-        description: "rain volumn in last hour (mm)"
-      - name: wind_gust
-        description: "Wind gust. Unit Default: meter/sec"
       - name: wind_deg
         description: "Wind direction, degrees (meteorological)"
       - name: wind_speed
         description: "Wind speed. Unit Default: meter/sec"
       - name: pressure
         description: "Pressure units, hPa"
-      - name: temp
+      - name: temp_k
         description: "Temperature. Unit Default: Kelvin"
       - name: humidity
         description: "Humidity, %"
