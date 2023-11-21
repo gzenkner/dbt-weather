@@ -1,19 +1,21 @@
 with RankedRows AS (
     SELECT
-        name,
+        city_name,
         base,
         timezone,
         lat,
         lon,
-        ROW_NUMBER() OVER (PARTITION BY name ORDER BY 1) AS row_num
+        country,
+        ROW_NUMBER() OVER (PARTITION BY city_name ORDER BY 1) AS row_num
     from {{ ref('stg_location_duplicates') }}
 )
 
 SELECT
-    name,
+    city_name,
     base,
     timezone,
     lat,
-    lon
+    lon,
+    country
 FROM RankedRows
 WHERE row_num = 1
