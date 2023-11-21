@@ -11,7 +11,7 @@ with RankedRows AS (
 )
 
 SELECT
-    city_name,
+    lower(replace(city_name, ' ', '_')) as city_name,
     base,
     timezone,
     lat,

@@ -16,7 +16,7 @@ FROM (
         {{ dbt_utils.generate_surrogate_key(['stg_weather.dt', 'stg_weather.city_name']) }} as location_key,
         dt,
         TIMESTAMP_SECONDS(dt) as event_date,
-        city_name,
+        lower(replace(city_name, ' ', '_')) as city_name,
         cloud_cover, 
         wind_deg, 
         wind_speed, 
