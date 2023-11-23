@@ -1,25 +1,32 @@
-with source as (
+SELECT 
+    location_time_key,
+    dt,
+    event_date,
+    rounded_event_date,
+    city_name,
+    cloud_cover, 
+    wind_deg, 
+    wind_speed, 
+    pressure,
+    temp_c,
+    humidity,
+    visibility
+FROM (
+    SELECT 
+        {{ dbt_utils.generate_surrogate_key(['DATETIME_TRUNC(TIMESTAMP_SECONDS(dt), HOUR)', 'raw_weather.city_name']) }} as location_time_key,
+        dt,
+        TIMESTAMP_SECONDS(dt) as event_date,
+        DATETIME_TRUNC(TIMESTAMP_SECONDS(dt), HOUR) as rounded_event_date,
+        lower(replace(city_name, ' ', '_')) as city_name,
+        cloud_cover, 
+        wind_deg, 
+        wind_speed, 
+        pressure,
+        round(temp_k - 273) as temp_c,
+        humidity,
+        visibility
+    FROM {{ ref('raw_weather') }}
+) AS subquery
 
-    select * from {{ source('weather_api', 'weather_api_table_raw') }}
-
-),
-
-renamed as (
-
-    select
-        CAST(JSON_EXTRACT(string, '$.dt') AS INT64) AS dt,
-        REGEXP_REPLACE(JSON_EXTRACT(string, '$.name'), r'"', '') AS city_name,
-        CAST(JSON_EXTRACT(string, '$.clouds.all') AS FLOAT64) AS cloud_cover,
-        CAST(JSON_EXTRACT(string, '$.wind.deg') AS FLOAT64) AS wind_deg,
-        CAST(JSON_EXTRACT(string, '$.wind.speed') AS FLOAT64) AS wind_speed,
-        CAST(JSON_EXTRACT(string, '$.main.pressure') AS FLOAT64) AS pressure,
-        CAST(JSON_EXTRACT(string, '$.main.temp') AS FLOAT64) AS temp_k,
-        CAST(JSON_EXTRACT(string, '$.main.humidity') AS FLOAT64) AS humidity,
-        CAST(JSON_EXTRACT(string, '$.visibility') AS FLOAT64) AS visibility
-
-    from source
 
 
-)
-
-select * from renamed

@@ -1,10 +1,6 @@
 version: 2
 
 sources:
-  - name: weather_api
-    tables:
-      - name: weather_api_table_raw
-
   - name: weather_training
     tables:
       - name: weather_city_of_london_training

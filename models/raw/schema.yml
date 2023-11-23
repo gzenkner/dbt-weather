@@ -2,29 +2,29 @@ version: 2
 
 models:
 
-  - name: stg_location_duplicates
+  - name: raw_location
     description: ""
     columns:
       - name: city_name
-        description: "location name"
+        description: ""
       - name: base
         description: "type of station"
       - name: timezone
-        description: "timezone"
+        description: ""
       - name: lat
-        description: "latitude"
+        description: ""
       - name: lon
-        description: "longitude"
+        description: ""
       - name: country
         description: ""
 
-  - name: stg_weather
+  - name: raw_weather
     description: ""
     columns:
       - name: dt
         description: "unix time"
       - name: city_name
-        description: "location name"
+        description: ""
       - name: cloud_cover
         description: "cloud cover percentage"
       - name: wind_deg
