@@ -1,7 +1,0 @@
-version: 2
-
-sources:
-  - name: weather_training
-    tables:
-      - name: weather_city_of_london_training
-      - name: weather_cockfosters_historical

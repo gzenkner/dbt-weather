@@ -21,9 +21,9 @@ FROM (
         cloud_cover, 
         wind_deg, 
         wind_speed, 
-        pressure,
-        round(temp_k - 273) as temp_c,
-        humidity,
+        pressure, 
+        round(temp_k - 273) as temp_c, 
+        humidity, 
         visibility
     FROM {{ ref('raw_weather') }}
 ) AS subquery

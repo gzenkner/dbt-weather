@@ -1,18 +1,33 @@
-SELECT
+WITH RankedRows AS (
+  select
+    location_time_key,
     dt,
-    timestamp_seconds(dt) as date,
-    DATETIME_TRUNC(timestamp_seconds(dt), HOUR) as rounded_event_date,
+    event_date,
+    rounded_event_date,
     city_name,
-    lat,
-    lon,
-    (temp - 273) as temp,
-    (dew_point - 273) as dew_point,
+    cloud_cover, 
+    wind_deg, 
+    wind_speed, 
     pressure,
+    temp_c,
     humidity,
-    wind_speed,
-    wind_deg,
-    wind_gust,
-    COALESCE(rain_1h, 0) as rain_1h,
-    COALESCE(clouds_all, 0) as clouds_all,
+    visibility,
+    ROW_NUMBER() OVER (partition by location_time_key order by dt) as row_num
+  from {{ ref('stg_weather_training') }}
+)
+
+select
+    location_time_key,
+    dt,
+    event_date,
+    rounded_event_date,
+    city_name,
+    cloud_cover, 
+    wind_deg, 
+    wind_speed, 
+    pressure,
+    temp_c,
+    humidity,
     visibility
-from {{ ref('stg_weather_training') }}
+from RankedRows
+where row_num = 1
